@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+@theme {
+    --color-nlw-orange: #F48F56
+}

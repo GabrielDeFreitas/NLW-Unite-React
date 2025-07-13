@@ -1,9 +1,12 @@
-export default function App() {
+import { AttendeeList, Header } from "./components";
+
+export function App() {
 
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="max-w-[1216px] mx-auto py-5 flex flex-col gap-5">
+      <Header />
+      <AttendeeList />
+    </div>
   )
 }
 
