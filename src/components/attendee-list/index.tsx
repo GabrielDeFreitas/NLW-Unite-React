@@ -11,7 +11,7 @@ export function AttendeeList() {
                 </div>
             </div>
 
-            <div className="border border-white/10 rounded-lg">
+            <div className="border border-white/10 rounded-lg w-full overflow-x-auto">
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-white/10">
