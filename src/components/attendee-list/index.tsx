@@ -1,17 +1,25 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal, Search } from "lucide-react";
 import { IconButton } from "../icon-button";
 import { Table } from "../table";
+import { useState, type ChangeEvent } from "react";
 
 export function AttendeeList() {
+    const [inputValue, setInputValue] = useState('')
+    const onSearchInputSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value)
+    }
+
     return (
         <div className="flex flex-col gap-4">
             <div className="flex gap-3 items-center">
                 <h1 className="text-2xl font-bold">Participantes</h1>
                 <div className="px-3 w-72 py-1.5 border border-white/10 rounded-lg text-sm flex items-center gap-3">
                     <Search className="size-4 text-emerald-300" />
-                    <input className="bg-transparent flex-1 outline-none" type="text" placeholder="Buscar participantes..." />
+                    <input onChange={onSearchInputSearch} className="bg-transparent flex-1 outline-none" type="text" placeholder="Buscar participantes..." />
                 </div>
             </div>
+
+            <pre className="py-8">event.target.value: {inputValue}</pre>
 
             <Table.Root>
                 <thead>
@@ -29,7 +37,7 @@ export function AttendeeList() {
                 <tbody>
                     {Array.from({ length: 6 }).map((_, index) => {
                         return (
-                            <Table.Row id={`tr-${index}`} className="hover:bg-white/5">
+                            <Table.Row key={`key-${index}`} id={`tr-${index}`} className="hover:bg-white/5">
                                 <Table.Cell>
                                     <input className="cursor-pointer size-4 bg-black/20 rounded border border-white/10 accent-nlw-orange" type="checkbox" name="" id="" />
                                 </Table.Cell>
