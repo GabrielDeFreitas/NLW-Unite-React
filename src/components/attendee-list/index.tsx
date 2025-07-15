@@ -1,4 +1,6 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal, Search } from "lucide-react";
+import { IconButton } from "../icon-button";
+import { Table } from "../table";
 
 export function AttendeeList() {
     return (
@@ -11,73 +13,61 @@ export function AttendeeList() {
                 </div>
             </div>
 
-            <div className="border border-white/10 rounded-lg w-full overflow-x-auto">
-                <table className="w-full">
-                    <thead>
-                        <tr className="border-b border-white/10">
-                            <th style={{ width: 48 }} className="py-3 px-4 text-sm font-semibold text-left">
-                                <input className="cursor-pointer size-4 bg-black/20 rounded border border-white/10 accent-nlw-orange" type="checkbox" name="" id="" />
-                            </th>
-                            <th className="py-3 px-4 text-sm font-semibold text-left">Código</th>
-                            <th className="py-3 px-4 text-sm font-semibold text-left">Participantes</th>
-                            <th className="py-3 px-4 text-sm font-semibold text-left">Data de inscrição</th>
-                            <th className="py-3 px-4 text-sm font-semibold text-left">Data do check-in</th>
-                            <th style={{ width: 64 }} className="py-3 px-4 text-sm font-semibold text-left"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Array.from({ length: 6 }).map((_, index) => {
-                            return (
-                                <tr key={index} id={`tr-${index}`} className="border-b border-white/10">
-                                    <td className="py-3 px-4 text-sm text-zinc-300">
-                                        <input className="cursor-pointer size-4 bg-black/20 rounded border border-white/10 accent-nlw-orange" type="checkbox" name="" id="" />
-                                    </td>
-                                    <td className="py-3 px-4 text-sm text-zinc-300">123456</td>
-                                    <td className="py-3 px-4 text-sm text-zinc-300">
-                                        <div className="flex flex-col gap-1">
-                                            <span className="font-semibold text-white">Placeholder placeholder</span>
-                                            <span>placeholder@lorem.com</span>
-                                        </div>
-                                    </td>
-                                    <td className="py-3 px-4 text-sm text-zinc-300">7 dias atrás</td>
-                                    <td className="py-3 px-4 text-sm text-zinc-300">12 dias atrás</td>
-                                    <td className="py-3 px-4 text-sm text-zinc-300">
-                                        <button className="cursor-pointer bg-black/20 border border-white/10 rounded-md p-1.5">
-                                            <MoreHorizontal className="size-4" />
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colSpan={3} className="py-3 px-4 text-sm font-semibold text-left">
-                                Mostrando 10 de 228 items
-                            </td>
-                            <td colSpan={3} className="py-3 px-4 text-sm font-semibold text-right">
-                                <div className="inline-flex items-center gap-8">
-                                    <span>Página 1 de 23</span>
-                                    <div className="flex gap-1.5">
-                                        <button className="cursor-pointer bg-white/10 border border-white/10 rounded-md p-1.5">
-                                            <ChevronsLeft className="size-4" />
-                                        </button>
-                                        <button className="cursor-pointer bg-white/10 border border-white/10 rounded-md p-1.5">
-                                            <ChevronLeft className="size-4" />
-                                        </button>
-                                        <button className="cursor-pointer bg-white/10 border border-white/10 rounded-md p-1.5">
-                                            <ChevronRight className="size-4" />
-                                        </button>
-                                        <button className="cursor-pointer bg-white/10 border border-white/10 rounded-md p-1.5">
-                                            <ChevronsRight className="size-4" />
-                                        </button>
+            <Table.Root>
+                <thead>
+                    <Table.Row>
+                        <Table.Header>
+                            <input className="cursor-pointer size-4 bg-black/20 rounded border border-white/10 accent-nlw-orange" type="checkbox" name="" id="" />
+                        </Table.Header>
+                        <Table.Header>Código</Table.Header>
+                        <Table.Header>Participantes</Table.Header>
+                        <Table.Header>Data de inscrição</Table.Header>
+                        <Table.Header>Data do check-in</Table.Header>
+                        <Table.Header style={{ width: 64 }} className="py-3 px-4 text-sm font-semibold text-left"></Table.Header>
+                    </Table.Row>
+                </thead>
+                <tbody>
+                    {Array.from({ length: 6 }).map((_, index) => {
+                        return (
+                            <Table.Row id={`tr-${index}`} className="hover:bg-white/5">
+                                <Table.Cell>
+                                    <input className="cursor-pointer size-4 bg-black/20 rounded border border-white/10 accent-nlw-orange" type="checkbox" name="" id="" />
+                                </Table.Cell>
+                                <Table.Cell>123456</Table.Cell>
+                                <Table.Cell>
+                                    <div className="flex flex-col gap-1">
+                                        <span className="font-semibold text-white">Placeholder placeholder</span>
+                                        <span>placeholder@lorem.com</span>
                                     </div>
+                                </Table.Cell>
+                                <Table.Cell>7 dias atrás</Table.Cell>
+                                <Table.Cell>12 dias atrás</Table.Cell>
+                                <Table.Cell>
+                                    <IconButton icon={MoreHorizontal} className="bg-black/20" />
+                                </Table.Cell>
+                            </Table.Row>
+                        )
+                    })}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <Table.Cell colSpan={3} className="font-semibold text-left">
+                            <span>Mostrando 10 de 228 items</span>
+                        </Table.Cell>
+                        <Table.Cell colSpan={3} className="font-semibold text-right">
+                            <div className="inline-flex items-center gap-8">
+                                <span>Página 1 de 23</span>
+                                <div className="flex gap-1.5">
+                                    <IconButton icon={ChevronsLeft} />
+                                    <IconButton icon={ChevronLeft} />
+                                    <IconButton icon={ChevronRight} />
+                                    <IconButton icon={ChevronsRight} />
                                 </div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                            </div>
+                        </Table.Cell>
+                    </tr>
+                </tfoot>
+            </Table.Root>
         </div>
     )
 }

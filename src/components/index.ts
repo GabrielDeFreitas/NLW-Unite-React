@@ -1,2 +1,5 @@
 export { Header } from './header'
 export { AttendeeList } from './attendee-list'
+export { NavLink } from './nav-link'
+export { IconButton } from './icon-button'
+export { Table } from './table'
