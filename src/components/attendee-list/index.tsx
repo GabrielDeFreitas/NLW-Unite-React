@@ -2,11 +2,26 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal,
 import { IconButton } from "../icon-button";
 import { Table } from "../table";
 import { useState, type ChangeEvent } from "react";
+import { attendees } from "../../data/attendee-list";
 
 export function AttendeeList() {
     const [inputValue, setInputValue] = useState('')
+    const [page, setPage] = useState(1);
+    const totalPage = Math.ceil(attendees.length / 10)
     const onSearchInputSearch = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value)
+    }
+    const goToPreviousPage = () => {
+        setPage(page - 1)
+    }
+    const goToNextPage = () => {
+        setPage(page + 1)
+    }
+    const goToLastPage = () => {
+        setPage(totalPage)
+    }
+    const goToFirstPage = () => {
+        setPage(1)
     }
 
     return (
@@ -35,21 +50,21 @@ export function AttendeeList() {
                     </Table.Row>
                 </thead>
                 <tbody>
-                    {Array.from({ length: 6 }).map((_, index) => {
+                    {attendees.slice((page - 1) * 10, page * 10).map((attendee) => {
                         return (
-                            <Table.Row key={`key-${index}`} id={`tr-${index}`} className="hover:bg-white/5">
+                            <Table.Row key={`key-${attendee.id}`} id={`id-${attendee.id}`} className="hover:bg-white/5">
                                 <Table.Cell>
                                     <input className="cursor-pointer size-4 bg-black/20 rounded border border-white/10 accent-nlw-orange" type="checkbox" name="" id="" />
                                 </Table.Cell>
-                                <Table.Cell>123456</Table.Cell>
+                                <Table.Cell>{attendee.id}</Table.Cell>
                                 <Table.Cell>
                                     <div className="flex flex-col gap-1">
-                                        <span className="font-semibold text-white">Placeholder placeholder</span>
-                                        <span>placeholder@lorem.com</span>
+                                        <span className="font-semibold text-white">{attendee.name}</span>
+                                        <span>{attendee.email}</span>
                                     </div>
                                 </Table.Cell>
-                                <Table.Cell>7 dias atrás</Table.Cell>
-                                <Table.Cell>12 dias atrás</Table.Cell>
+                                <Table.Cell>{attendee.createdAt.toISOString()}</Table.Cell>
+                                <Table.Cell>{attendee.checkedInAt.toISOString()}</Table.Cell>
                                 <Table.Cell>
                                     <IconButton icon={MoreHorizontal} className="bg-black/20" />
                                 </Table.Cell>
@@ -60,16 +75,16 @@ export function AttendeeList() {
                 <tfoot>
                     <tr>
                         <Table.Cell colSpan={3} className="font-semibold text-left">
-                            <span>Mostrando 10 de 228 items</span>
+                            <span>Mostrando 10 de {attendees.length} items</span>
                         </Table.Cell>
                         <Table.Cell colSpan={3} className="font-semibold text-right">
                             <div className="inline-flex items-center gap-8">
-                                <span>Página 1 de 23</span>
+                                <span>Página {page} de {totalPage}</span>
                                 <div className="flex gap-1.5">
-                                    <IconButton icon={ChevronsLeft} />
-                                    <IconButton icon={ChevronLeft} />
-                                    <IconButton icon={ChevronRight} />
-                                    <IconButton icon={ChevronsRight} />
+                                    <IconButton icon={ChevronsLeft} onClick={goToFirstPage} disabled={page === 1} />
+                                    <IconButton icon={ChevronLeft} onClick={goToPreviousPage} disabled={page === 1} />
+                                    <IconButton icon={ChevronRight} onClick={goToNextPage} disabled={page === totalPage} />
+                                    <IconButton icon={ChevronsRight} onClick={goToLastPage} disabled={page === totalPage} />
                                 </div>
                             </div>
                         </Table.Cell>
